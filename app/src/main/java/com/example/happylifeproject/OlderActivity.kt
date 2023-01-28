@@ -1,6 +1,5 @@
 package com.example.happylifeproject
 
-
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,8 +30,8 @@ class OlderActivity : AppCompatActivity() {
                 //连接到数据库并获取连接对象
                 connection = DriverManager.getConnection(jdbcUrl, username, password)
                 //SQL查询,从 activity 表中获取所有行
-                var resultSet =
-                    connection?.createStatement()?.executeQuery("SELECT * FROM activity")
+                val resultSet =
+                    connection?.createStatement()?.executeQuery("SELECT * FROM test")
                 //使用 resultSet.next() 遍历结果集并获取每一行的每一列的值
 
                 for (i in 0..(resultSet?.row ?: 0)){
@@ -42,21 +41,21 @@ class OlderActivity : AppCompatActivity() {
                         datas.add(item)
                     }
                 }
-                //通知 adapter 数据已经更改并调用 notifyDataSetChanged() 方法来更新视图
-                adapter.notifyDataSetChanged()
+                recyclerView.post {
+                    //通知 adapter 数据已经更改并调用 notifyDataSetChanged() 方法来更新视图
+                    adapter.notifyDataSetChanged()
+                }
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
             }
         }.start()
     }
 
-    fun getConnection() = connection
-    //使用 connection 属性来获取到数据库连接
 
     companion object {
-        private const val jdbcUrl = "jdbc:mysql://10.38.7.96:3306/activities?useSSL=false"
-        private const val username = "root"
-        private const val password = "root"
+        private const val jdbcUrl = "jdbc:mysql://39.101.79.219:3306/sgly2004?useSSL=false"
+        private const val username = "sgly2004"
+        private const val password = "sgly2004"
         var connection: Connection? = null
     }
 }

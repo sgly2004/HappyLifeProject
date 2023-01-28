@@ -14,9 +14,9 @@ class OlderDetailActivity : AppCompatActivity() {
         // 获取传递过来的卡片编号(以知道点击的卡片应该获取数据库中的哪些数据)
         val position = intent.getIntExtra("position", 0)
 
-        val jdbcUrl = "jdbc:mysql://10.38.7.96:3306/activities?useSSL=false"
-        val username = "root"
-        val password = "root"
+        val jdbcUrl = "jdbc:mysql://39.101.79.219:3306/sgly2004?useSSL=false"
+        val username = "sgly2004"
+        val password = "sgly2004"
 
         //创建一个新线程
         Thread {
@@ -30,7 +30,7 @@ class OlderDetailActivity : AppCompatActivity() {
             // 使用 JDBC 驱动从数据库中读取数据
             val statement = connection.createStatement()
             val resultSet =
-                statement.executeQuery("SELECT * FROM activity WHERE id = $position")
+                statement.executeQuery("SELECT * FROM test WHERE id = $position")
             //更新UI需要在主线程
             runOnUiThread {
                 val activityNameTextView: TextView = findViewById(R.id.activityNameTextView)
@@ -38,12 +38,6 @@ class OlderDetailActivity : AppCompatActivity() {
                 val locationTextView: TextView = findViewById(R.id.locationTextView)
                 val workContentTextView: TextView = findViewById(R.id.workContentTextView)
                 val childAdviceTextView: TextView = findViewById(R.id.childAdviceTextView)
-
-                // Log.d("ResultSet", "activity_name:"+resultSet.getString("name"))
-                // Log.d("ResultSet", "time:"+resultSet.getString("time"))
-                //  Log.d("ResultSet", "location:"+resultSet.getString("location"))
-                // Log.d("ResultSet", "work_content:"+resultSet.getString("work_content"))
-                //Log.d("ResultSet", "child_advice:"+resultSet.getString("child_advice"))
 
                 // 将数据填充到文本展示框中
                 if (resultSet.next()) {
